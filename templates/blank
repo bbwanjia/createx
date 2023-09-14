@@ -1,0 +1,11 @@
+\documentclass{**documentclass**}
+\title{**title**}
+\author{**author**}
+\date{**date**}
+
+\begin{document}
+\maketitle
+
+**Contents**
+
+\end{document}

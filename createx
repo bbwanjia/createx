@@ -1,4 +1,9 @@
 #!/usr/local/bin/python
+import sys
+
+commands = sys.argv[1:]
+
 from main import main
 
-exit(main())
+
+exit(main(commands))

@@ -1,0 +1,14 @@
+\documentclass{beamer}
+\usepackage{beamer}
+\usetheme{**beamertheme**}
+
+\title{**title**}
+\author{**author**}
+\date{**date**}
+
+\begin{document}
+
+
+\frame{\titlepage}
+
+\end{document}
