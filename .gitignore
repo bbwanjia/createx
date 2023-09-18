@@ -1,3 +1,6 @@
 __pycache__
 tests
 .vscode
+.DS_Store
+.gitignore
+

@@ -9,6 +9,8 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 \newtheorem{example}{Example}[section]
+\newtheorem{problem}{Problem}[section]
+\newtheorem{claim}{Claim}[problem]
 \newtheorem*{acknowledgement}{Acknowledgement}
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
