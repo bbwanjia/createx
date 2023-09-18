@@ -2,7 +2,17 @@
 \title{**title**}
 \author{**author**}
 \date{**date**}
-
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem*{acknowledgement}{Acknowledgement}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
 \begin{document}
 \maketitle
 
