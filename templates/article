@@ -15,6 +15,7 @@
 \newtheorem*{acknowledgement}{Acknowledgement}
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
 \begin{document}
 \maketitle
 
