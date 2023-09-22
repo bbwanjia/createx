@@ -1,6 +1,5 @@
 \documentclass{article}
 \usepackage{fancyhdr}
-\title{**title**}
 \author{**author**}
 \date{**date**}
 \usepackage{amsthm}
