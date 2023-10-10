@@ -1,14 +1,15 @@
 \documentclass{beamer}
 \usetheme{**beamertheme**}
 \usepackage{amsthm}
-\theoremstyle{definition}
-\newtheorem*{acknowledgement}{Acknowledgement}
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\title{**title**}
+title{**title**}
 \author{**author**}
 \date{**date**}
-
+\AtBeginSection[]{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+  }
 \begin{document}
 
 
