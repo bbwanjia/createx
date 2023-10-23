@@ -1,6 +1,8 @@
 \documentclass{beamer}
 \usetheme{**beamertheme**}
 \usepackage{amsthm}
+\usepackage{amsmath}
+\newcommand\dd{\mathrm{d}}
 title{**title**}
 \author{**author**}
 \date{**date**}

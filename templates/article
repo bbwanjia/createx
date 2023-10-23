@@ -3,6 +3,7 @@
 \author{**author**}
 \date{**date**}
 \usepackage{amsthm}
+\usepackage{amsmath}
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}{Lemma}[section]
@@ -17,6 +18,7 @@
 \newtheorem*{remark}{Remark}
 \newtheorem*{solution}{Solution}
 \begin{document}
+\newcommand\dd{\mathrm{d}}
 \maketitle
 
 

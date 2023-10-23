@@ -3,6 +3,7 @@
 \author{**author**}
 \date{**date**}
 \usepackage{amsthm}
+\usepackage{amsmath}
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}[theorem]
@@ -16,12 +17,14 @@
 \theoremstyle{remark}
 \newtheorem*{solution}{Solution}
 \newtheorem*{remark}{Remark}
+\newcommand\dd{\mathrm{d}}
 \begin{document}
 
 \pagestyle{fancy}
 \fancyhead[L]{**headerL**}
 \fancyhead[R]{**headerR**}
 \fancyfoot[L]{**footer**}
+\fancyfoot[R]{**title**}
 
 
 \pagestyle{fancy}
