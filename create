@@ -1,0 +1,10 @@
+#!/usr/local/bin/python
+from base import TEX_TYPES
+from sys import argv
+from main import main
+
+commands = argv[1:]
+if commands[0] in TEX_TYPES:
+  exit(main(["create"]+commands))
+else:
+  print("Unknown tex type", commands[0])

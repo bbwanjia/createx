@@ -9,6 +9,10 @@
 
 ## Commands
 
+> For simplicity, now you can conveniently create a TEX file using 
+> command `create [type of tex] -filepath`. For example, if you want to 
+> create a *beamer* named *example*, you type `create beamer example`.
+
 - `create [blank|note|article|beamer] filepath` creates a file using templates. Currently there are  four templates: `blank|note|article|beamer`.
 - `edit filepath` opens Vim for editing the file quickly from command prompt.
 - `open filepath` opens the file using default application.
