@@ -3,7 +3,7 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \newcommand\dd{\mathrm{d}}
-title{**title**}
+\title{**title**}
 \author{**author**}
 \date{**date**}
 \AtBeginSection[]{
