@@ -2,6 +2,9 @@
 
 *An auto $\LaTeX$ file generator*
 
+A $\LaTeX$ manual from https://en.wikibooks.org/wiki/LaTeX is available
+as `LaTeX.pdf`. We hold the greatest appreciation to this website.
+
 ## Usage
 
 **CREATEX** can automatically generate templated $\LaTeX$ files using command line. See commands below.
