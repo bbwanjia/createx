@@ -8,6 +8,7 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}[theorem]
 \newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{proposition}{Proposition}[section]
 \newtheorem{problem}{Problem}
 \newtheorem{claim}{Claim}[problem]
 \theoremstyle{definition}
