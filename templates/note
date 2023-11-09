@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{scrreprt}
 \usepackage{fancyhdr}
 \author{**author**}
 \date{**date**}
@@ -6,18 +6,18 @@
 \usepackage{amsmath}
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}[theorem]
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{proposition}{Proposition}[section]
-\newtheorem{problem}{Problem}
-\newtheorem{claim}{Claim}[problem]
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem{example}{Example}
-\newtheorem*{acknowledgement}{Acknowledgement}
+\newtheorem{problem}{Problem}
 \theoremstyle{remark}
 \newtheorem*{solution}{Solution}
 \newtheorem*{remark}{Remark}
+\newtheorem*{acknowledgement}{Acknowledgement}
 \newcommand\dd{\mathrm{d}}
 \begin{document}
 
