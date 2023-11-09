@@ -9,6 +9,7 @@ as `LaTeX.pdf`. We hold the greatest appreciation to this website.
 
 **CREATEX** can automatically generate templated $\LaTeX$ files using command line. See commands below.
 *Important* The file `settings.py` must be configured before first using it.
+You can modify `settingsexample.py` and save it with name `settings.py`.
 
 ## Commands
 
