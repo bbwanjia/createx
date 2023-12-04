@@ -1,6 +1,5 @@
 # CREATEX
 
-
 ![Language: Python](https://img.shields.io/github/languages/top/bbwanjia/createx)
 ![License](https://img.shields.io/github/license/bbwanjia/createx)
 ![Last commit](https://img.shields.io/github/last-commit/bbwanjia/createx)
@@ -10,6 +9,8 @@
 [<img src="https://img.shields.io/badge/lint-pyflakes-ff69b4.svg" alt="lint: pyflakes">](https://github.com/PyCQA/pyflakes)
 ![Forks](https://img.shields.io/github/forks/bbwanjia/createx)
 ![Stars](https://img.shields.io/github/stars/bbwanjia/createx)
+
+![](./assets/banner.png)
 
 *An auto $\LaTeX$ file generator*
 
