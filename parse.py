@@ -16,7 +16,7 @@ def Oquit() -> int:
     return 0
 
 
-def Ocreate(tpe: str, path: str) -> int:
+def Ocreate(tpe: str, path: str, title: str) -> int:
     if os.path.exists(path):
         print(path + " already exists!")
         return 1
@@ -28,6 +28,7 @@ def Ocreate(tpe: str, path: str) -> int:
     tex = tex.replace("**headerL**", headerL)
     tex = tex.replace("**headerR**", headerR)
     tex = tex.replace("**footer**", footer)
+    tex = tex.replace("**title**", title)
     tex = tex.replace("**beamertheme**", beamertheme)
 
     with open(path, "w") as file:

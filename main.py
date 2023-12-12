@@ -8,7 +8,7 @@ def main(commands) -> int:
     if act.opcode == "quit":
         return Oquit()
     elif act.opcode == "create":
-        return Ocreate(act.choice, act.path)
+        return Ocreate(act.choice, act.path, act.title)
     elif act.opcode == "edit":
         return Oedit(act.path)
     elif act.opcode == "make":

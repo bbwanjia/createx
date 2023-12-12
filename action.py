@@ -13,6 +13,9 @@ class Action:
             self.opcode = "help"
         else:
             self.opcode = commands[0]
+            if commands[-1].endswith(".tex"):
+                commands[-1] = ".".join(commands[-1].split(".")[:-1])
+            self.title = commands[-1]
             self.path = os.path.abspath(os.path.join(os.getcwd(), commands[-1]))
             if not self.path.endswith(".tex"):
                 self.path += ".tex"
