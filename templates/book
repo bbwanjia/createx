@@ -1,7 +1,7 @@
-\documentclass{book}
-\author{**author**}
+\documentclass[oneside]{book}
+\author{\textsc{**author**}}
 \date{**date**}
-\title{**title**}
+\title{\textsc{**title**}}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \theoremstyle{plain}
@@ -23,6 +23,7 @@
 
 \begin{document}
 \maketitle
+\tableofcontents
 
 **Contents**
 
