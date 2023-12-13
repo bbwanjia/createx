@@ -1,9 +1,11 @@
 \documentclass{article}
-\title{**title**}
+\title{\huge{**title**}}
 \author{**author**}
 \date{**date**}
 \usepackage{amsthm}
 \usepackage{amsmath}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}{Lemma}[section]
