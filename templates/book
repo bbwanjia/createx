@@ -1,4 +1,27 @@
 \documentclass[oneside]{book}
+\usepackage{xcolor}
+\usepackage{titlesec}
+% Define colors
+\definecolor{maincolor}{RGB}{0, 102, 204}
+\definecolor{chaptercolor}{RGB}{0, 51, 102}
+\definecolor{sectioncolor}{RGB}{0, 51, 102}
+\definecolor{subsectioncolor}{RGB}{51, 102, 0}
+% Set colors for section titles
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\color{chaptercolor}\Huge}
+  {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+\titleformat{\section}
+  {\normalfont\bfseries\color{sectioncolor}\Large}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\bfseries\color{subsectioncolor}\large}
+  {\thesubsection}{1em}{}
+
+% Set colors for links
+\usepackage[colorlinks=true, linkcolor=maincolor, urlcolor=maincolor, citecolor=maincolor]{hyperref}
+
 \author{\textsc{**author**}}
 \date{**date**}
 \title{\textsc{**title**}}
