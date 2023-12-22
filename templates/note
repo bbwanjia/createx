@@ -5,7 +5,7 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{geometry}
-\geometry{a4paper, margin=1.5in}
+\geometry{a4paper, margin=1in}
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
