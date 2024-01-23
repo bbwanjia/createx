@@ -10,7 +10,7 @@ class CommandError(BaseException):
 class Action:
     def __init__(self, commands: list[str]) -> None:
         if commands == []:
-            self.opcode = "help"
+            self.opcode = "noentry"
         else:
             self.opcode = commands[0]
             if commands[-1].endswith(".tex"):
@@ -22,6 +22,8 @@ class Action:
             self.choice = None
             if len(commands) == 3:
                 self.choice = commands[1]
+            if self.opcode == "show":
+                self.showoption = commands[1]
 
     @staticmethod
     def check_eligibility(commands: list[str]) -> CommandError:
