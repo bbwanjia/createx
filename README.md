@@ -36,7 +36,13 @@ You can modify `settingsexample.py` and save it with name `settings.py`.
 
 Email: `tommy.liu.jingyu@proton.me`
 
-## Lisence
+## Further Targets
+- Switch to C language
+- Compile the program
+- more templates
+- better machine-independent support
+
+## License
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
