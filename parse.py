@@ -22,7 +22,7 @@ def Ocreate(tpe: str, path: str, title: str) -> int:
         print(path + " already exists!")
         return 1
 
-    with open(os.path.join(abspath, "templates", tpe), "r") as raw:
+    with open(os.path.join(abspath, "templates", tpe+".tex"), "r") as raw:
         tex = raw.read()
     tex = tex.replace("**author**", author)
     tex = tex.replace("**date**", date)
