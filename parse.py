@@ -100,7 +100,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     elif showoption == "c":
         print("""
 Contribute through GitHub: <https://github.com/bbwanjia/createx>
-Contact the author by email: <tommy.liu.jingyu@proton.me>
 """)
     else:
         print("Unknown show option. For details of warranty type `show w`, for contribution type `show c`.")

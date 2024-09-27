@@ -31,11 +31,6 @@ You can modify `settingsexample.py` and save it with name `settings.py`.
 - `make filepath` complies the file using default `pdflatex` complier. Notice that a $\TeX$ distribution must be installed on the client and it is not included in this program. TeX Live is recommended.
 - `show [option]` shows details about warranty and contribution, according to the GNU General Public License version 3.0.
 
-
-## Contact the owner of this repository!
-
-Email: `tommy.liu.jingyu@proton.me`
-
 ## Further Targets
 - Switch to C language
 - Compile the program
