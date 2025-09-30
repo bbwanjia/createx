@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/local/bin/python3
 from base import TEX_TYPES
 from sys import argv
 from main import main
