@@ -1,46 +1,61 @@
-from base import *
-import os
+"""Validate and normalize the existing createx command syntax."""
+
+from dataclasses import dataclass
+from pathlib import Path
+
+from base import OPCODES, TEX_TYPES
 
 
-class CommandError(BaseException):
-    def __init__(self, *args: object) -> None:
-        super()
+class CommandError(ValueError):
+    """A command cannot be executed as written."""
 
 
+@dataclass
 class Action:
+    opcode: str = "noentry"
+    path: str = ""
+    title: str = ""
+    choice: str = ""
+    showoption: str = ""
+
     def __init__(self, commands: list[str]) -> None:
-        if commands == []:
-            self.opcode = "noentry"
-        else:
-            self.opcode = commands[0]
-            if commands[-1].endswith(".tex"):
-                commands[-1] = ".".join(commands[-1].split(".")[:-1])
-            self.title = commands[-1]
-            self.path = os.path.abspath(os.path.join(os.getcwd(), commands[-1]))
-            if not self.path.endswith(".tex"):
-                self.path += ".tex"
-            self.choice = None
-            if len(commands) == 3:
-                self.choice = commands[1]
-            if self.opcode == "show":
-                self.showoption = commands[1]
+        error = self.check_eligibility(commands)
+        if error is not None:
+            raise error
+
+        self.opcode = commands[0] if commands else "noentry"
+        self.path = self.title = self.choice = self.showoption = ""
+        if self.opcode == "show":
+            self.showoption = commands[1]
+        elif self.opcode == "create":
+            self.choice = commands[1]
+            self._set_path(commands[2])
+        elif self.opcode in {"edit", "make", "open", "del"}:
+            self._set_path(commands[1])
+
+    def _set_path(self, filename: str) -> None:
+        target = Path(filename).expanduser()
+        if target.suffix != ".tex":
+            target = Path(str(target) + ".tex")
+        self.path = str(target.resolve())
+        self.title = target.stem
 
     @staticmethod
-    def check_eligibility(commands: list[str]) -> CommandError:
-        tmp = commands.copy()
-        l = len(tmp)
-        if l == 0:
+    def check_eligibility(commands: list[str]) -> CommandError | None:
+        if not commands:
             return None
-        if l > 3:
-            return CommandError("Bad command. Use createx help to see help page.")
-
-        if tmp[0] not in OPCODES:
+        opcode = commands[0]
+        if opcode not in OPCODES:
+            return CommandError(f"Unknown command '{opcode}'. Type `help` for commands.")
+        expected = 3 if opcode == "create" else 2 if opcode in {
+            "edit", "make", "open", "del", "show"
+        } else 1
+        if len(commands) != expected:
+            return CommandError(f"Wrong number of arguments for `{opcode}`. Type `help` for usage.")
+        if opcode == "create" and commands[1] not in TEX_TYPES:
             return CommandError(
-                f"Opcode '{tmp[0]}' not understood, opcode must be one of", *OPCODES
+                f"Unknown template '{commands[1]}'. Available templates: {', '.join(TEX_TYPES)}."
             )
-
-        if l == 3 and (tmp[1] not in TEX_TYPES or tmp[0] != "create"):
-            return CommandError(f"Cannot give {tmp[1]} to this option. See help page.")
-
-        if l in (1, 2, 3):
-            return None
+        if opcode in {"create", "edit", "make", "open", "del"} and not commands[-1].strip():
+            return CommandError("A file path is required.")
+        return None

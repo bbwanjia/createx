@@ -1,10 +1,10 @@
-#!/usr/local/bin/python3
-from base import TEX_TYPES
-from sys import argv
+#!/usr/bin/env python3
+"""Shortcut for `createx create TYPE FILEPATH`."""
+
+import sys
+
 from main import main
 
-commands = argv[1:]
-if commands[0] in TEX_TYPES:
-  exit(main(["create"]+commands, oneway=True))
-else:
-  print("Unknown tex type", commands[0])
+
+if __name__ == "__main__":
+    sys.exit(main(["create", *sys.argv[1:]], oneway=True))

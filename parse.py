@@ -1,68 +1,42 @@
+"""Implement the commands accepted by createx."""
+
 import os
-from settings import *
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import sys
+
 from action import Action
+from base import TEX_TYPES
+
+try:
+    import settings as config
+except ModuleNotFoundError as exc:
+    if exc.name != "settings":
+        raise
+    import settingsexample as config
+
+
+TEMPLATE_DIR = Path(__file__).resolve().parent / "templates"
+PLACEHOLDER = re.compile(r"\*\*([A-Za-z]+)\*\*")
+TEX_SPECIAL = re.compile(r"[\\{}$&#%_^~]")
+TEX_ESCAPES = {
+    "\\": r"\textbackslash{}",
+    "{": r"\{",
+    "}": r"\}",
+    "$": r"\$",
+    "&": r"\&",
+    "#": r"\#",
+    "%": r"\%",
+    "_": r"\_",
+    "^": r"\textasciicircum{}",
+    "~": r"\textasciitilde{}",
+}
 
 
 def extract(commands: list[str]) -> Action:
-    check = Action.check_eligibility(commands)
-    if check:
-        return Action(commands = [])
-    else:
-        # passes check
-        return Action(commands = commands)
-
-
-def Oquit() -> int:
-    print("EXIT\n\n")
-    return 0
-
-
-def Ocreate(tpe: str, path: str, title: str) -> int:
-    if os.path.exists(path):
-        print(path + " already exists!")
-        return 1
-
-    with open(os.path.join(abspath, "templates", tpe+".tex"), "r") as raw:
-        tex = raw.read()
-    tex = tex.replace("**author**", author)
-    tex = tex.replace("**date**", date)
-    tex = tex.replace("**headerL**", headerL)
-    tex = tex.replace("**headerR**", headerR)
-    tex = tex.replace("**footer**", footer)
-    tex = tex.replace("**title**", title)
-    tex = tex.replace("**beamertheme**", beamertheme)
-
-    with open(path, "w") as file:
-        file.write(tex)
-    print("Created TEX file", path)
-    return 0
-
-
-def Oedit(path: str) -> int:
-    return os.system("vim " + path)
-
-
-def Omake(path: str) -> int:
-    return os.system("pdflatex " + path)
-
-
-def Ohelp() -> int:
-    print("""
-    SIMPLE HELP PANEL
-
-    - `create [blank|note|article|beamer] filepath` creates a file using templates. Currently there are  four templates: `blank|note|article|beamer`.
-    - `edit filepath` opens Vim for editing the file quickly from command prompt.
-    - `open filepath` opens the file using default application.
-    - `del filepath` deletes the file under second confirmation.
-    - `make filepath` complies the file using default $\LaTeX$ complier. Notice that a $\LaTeX$ distribution must be installed on the client and it is not included in this program. TeX Live is recommended.
-    - `show [option]` shows details about warranty and contribution, according to the GNU General Public License version 3.0.
-
-    FOR MORE DETAILS PLEASE REFER TO README.md.
-""")
-    
-
-def Oopen(path: str) -> int:
-    return os.system("open " + path)
+    return Action(commands)
 
 
 def Oquit() -> int:
@@ -70,18 +44,109 @@ def Oquit() -> int:
     return 0
 
 
+def Ocreate(tpe: str, path: str, title: str) -> int:
+    destination = Path(path)
+    if tpe not in TEX_TYPES:
+        print(f"Unknown template: {tpe}")
+        return 1
+    template = TEMPLATE_DIR / f"{tpe}.tex"
+    try:
+        source = template.read_text(encoding="utf-8")
+        values = {
+            "author": str(config.author),
+            "date": str(config.date),
+            "headerL": str(config.headerL),
+            "headerR": str(config.headerR),
+            "footer": str(config.footer),
+            "title": TEX_SPECIAL.sub(lambda match: TEX_ESCAPES[match.group()], title),
+            "beamertheme": str(config.beamertheme),
+            "documentclass": "article",
+            "Contents": "",
+        }
+        generated = PLACEHOLDER.sub(lambda match: values.get(match.group(1), match.group()), source)
+        with destination.open("x", encoding="utf-8") as output:
+            output.write(generated)
+    except FileExistsError:
+        print(f"{destination} already exists!")
+        return 1
+    except OSError as exc:
+        print(f"Could not create {destination}: {exc}")
+        return 1
+    print("Created TEX file", destination)
+    return 0
+
+
+def _run(command: list[str]) -> int:
+    try:
+        return subprocess.run(command, check=False).returncode
+    except OSError as exc:
+        print(f"Could not run {command[0]}: {exc}")
+        return 1
+
+
+def Oedit(path: str) -> int:
+    return _run(["vim", path])
+
+
+def Omake(path: str) -> int:
+    return _run(["pdflatex", path])
+
+
+def Oopen(path: str) -> int:
+    if sys.platform == "darwin":
+        return _run(["open", path])
+    if os.name == "nt":
+        try:
+            os.startfile(path)
+            return 0
+        except OSError as exc:
+            print(f"Could not open {path}: {exc}")
+            return 1
+    opener = shutil.which("xdg-open")
+    if opener is None:
+        print("Could not find xdg-open.")
+        return 1
+    return _run([opener, path])
+
+
 def Odel(path: str) -> int:
+    target = Path(path)
     print("To confirm deleting", path, "type its filename below")
-    res = input("> ")
-    if path.endswith(res):
-        os.remove(path=path)
+    try:
+        answer = input("> ")
+    except EOFError:
+        return 1
+    if answer != target.name:
+        print("Deletion cancelled.")
+        return 1
+    try:
+        target.unlink()
+    except OSError as exc:
+        print(f"Could not delete {path}: {exc}")
+        return 1
     print("Deleted", path)
     return 0
 
+
+def Ohelp() -> int:
+    print(f"""SIMPLE HELP PANEL
+
+    create [{'|'.join(TEX_TYPES)}] filepath   Create a TeX file from a template.
+    edit filepath                            Edit the file with Vim.
+    open filepath                            Open the file with the default application.
+    del filepath                             Delete after typing its filename.
+    make filepath                            Compile with pdflatex.
+    show [w|c]                              Show warranty or contribution details.
+    help                                    Show this panel.
+    quit                                    Exit the interactive prompt.
+
+    See README.md for more details.""")
+    return 0
+
+
 def Oshow(showoption: str) -> int:
     if showoption == "w":
-        print("""
-createx TeX maker
+        print("""createx TeX maker
 Copyright (C) 2024  bbwanjia
 
 This program is free software: you can redistribute it and/or modify
@@ -95,11 +160,10 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
-""")
+along with this program.  If not, see <https://www.gnu.org/licenses/>.""")
     elif showoption == "c":
-        print("""
-Contribute through GitHub: <https://github.com/bbwanjia/createx>
-""")
+        print("Contribute through GitHub: <https://github.com/bbwanjia/createx>")
     else:
-        print("Unknown show option. For details of warranty type `show w`, for contribution type `show c`.")
+        print("Unknown show option. For warranty type `show w`; for contribution type `show c`.")
+        return 1
+    return 0
